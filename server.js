@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mockData = require('./data/mock_pretty.json');
 const PORT = 3001;
 const PAGESIZE = 9;
@@ -11,12 +10,13 @@ const paginator = (page, size, object) => {
 }
 
 const app = express();
-app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   if (req.query.page) {
     const page = req.query.page;
     res.send(paginator(page, PAGESIZE, mockData));
+  } else {
+    res.send(paginator(1, PAGESIZE, mockData));
   }
 })
 
